@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lacak Paket - Jasa Pengiriman</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Lacak Paket</h1>
+    </header>
+    <main>
+        <form id="trackingForm">
+            <label for="tracking_number">Nomor Resi:</label>
+            <input type="text" id="tracking_number" name="tracking_number" required>
+            <button type="submit">Lacak</button>
+        </form>
+
+        <div id="status"></div> <!-- Untuk menampilkan status tracking -->
+
+        <a href="index.html" class="btn-home">Kembali ke Home</a>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Jasa Pengiriman Paket. Semua hak cipta dilindungi.</p>
+    </footer>
+
+    <script>
+        // Data simulasi status paket
+        const dataResi = {
+            "RESI6756A80C45257": "Paket sedang dalam perjalanan ke tujuan.",
+            "RESI4B82F9D123456": "Paket telah diterima oleh penerima.",
+            "RESI1C34A67B890EF": "Paket belum dikirim."
+        };
+
+        // Meng-handle form submit
+        document.getElementById("trackingForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const trackingNumber = document.getElementById("tracking_number").value.toUpperCase();
+            const statusElement = document.getElementById("status");
+
+            // Cek apakah resi ada dalam data
+            if (dataResi[trackingNumber]) {
+                statusElement.innerHTML = "<h2>Status Paket:</h2><p>" + dataResi[trackingNumber] + "</p>";
+            } else {
+                statusElement.innerHTML = "<h2>Nomor Resi Tidak Ditemukan</h2><p>Silakan periksa kembali nomor resi Anda.</p>";
+            }
+        });
+    </script>
+</body>
+</html>

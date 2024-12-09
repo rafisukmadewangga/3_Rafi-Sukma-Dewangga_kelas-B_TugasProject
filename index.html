@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Jasa Pengiriman</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Selamat Datang di ExpressTrack</h1>
+    </header>
+
+    <main>
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <img src="PenuhDenganPerhatian.png" style="width:500px;height:250px;%">
+            </div>
+            <div class="mySlides fade">
+                <img src="sat set.png" style="width:500px;height:250px;%">
+            </div>
+            <div class="mySlides fade">
+                <img src="siap menuju keberbagai wilayah.png"  style=width:500px;height:250px;%">
+            </div>
+        </div>
+    
+        <p>Kami siap membantu Anda mengirimkan paket ke seluruh Indonesia dengan cepat dan aman!</p>
+        <div class="button-group">
+            <a href="booking.html" class="btn-home">Booking</a>
+            <a href="about.html" class="btn-home">Tentang Kami</a>
+            <a href="services.html" class="btn-home">Layanan</a>
+            <a href="track.html" class="btn-home">Lacak Paket</a>
+            <a href="contact.html" class="btn-home">Kontak</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Jasa Pengiriman. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+    <script>
+        // Mengatur slideshow untuk mengganti gambar setiap 10 detik
+        let slideIndex = 0;
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("mySlides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex-1].style.display = "block";  
+            setTimeout(showSlides, 10000); // Mengganti slide setiap 10 detik
+        }
+
+        showSlides(); // Memulai slideshow
+    </script>
+</body>
+</html>

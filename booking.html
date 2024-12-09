@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Jasa Pengiriman</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Formulir Pemesanan</h1>
+    </header>
+
+    <section id="order-form">
+        <form action="submit_order.php" method="POST" class="order-form">
+            <label for="name">Nama Pengirim:</label>
+            <input type="text" id="name" name="sender_name" required>
+
+            <label for="recipient_name">Nama Penerima:</label>
+            <input type="text" id="recipient_name" name="recipient_name" required>
+
+            <label for="phone">Nomor Telepon:</label>
+            <input type="tel" id="phone" name="phone" required>
+    
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="destination">Wilayah Tujuan:</label>
+            <input type="text" id="destination" name="destination" placeholder="Masukkan nama kota" oninput="updateHarga()" required>
+
+            <label for="address">Alamat Pengiriman:</label>
+            <textarea id="address" name="address" rows="4" required></textarea>
+
+            <!-- Tambahan Jenis Paket -->
+            <label for="package-type">Jenis Paket:</label>
+            <select id="package-type" name="package_type" required>
+                <option value="regular">Paket Reguler</option>
+                <option value="express">Paket Ekspres</option>
+            </select>
+
+            <!-- Jenis Barang -->
+            <label for="item-type">Jenis Barang:</label>
+            <select id="item-type" name="item_type" required>
+                <option value="clothing">Pakaian</option>
+                <option value="documents">Dokumen</option>
+                <option value="electronics">Elektronik</option>
+                <option value="food">Makanan</option>
+                <option value="fragile">Barang Pecah Belah</option>
+                <option value="others">Lainnya</option>
+            </select>
+
+            <!-- Tambahan Berat Paket -->
+            <label for="weight">Berat Paket (kg):</label>
+            <input type="number" id="weight" name="weight" min="0.1" step="0.1" required>
+
+            <label for="payment-method">Metode Pembayaran:</label>
+            <select id="payment-method" name="payment-method" onchange="updateHarga()">
+                <option value="sender">Pengirim</option>
+                <option value="receiver">Penerima</option>
+            </select>
+
+            <p id="price-info">Harga Pengiriman: Rp 10.000</p>
+            <p id="summary-price">Rp 10.000</p>
+
+            <button type="submit" class="btn-submit">Kirim Pesanan</button>
+        </form>
+    </section>
+
+    <a href="index.html" class="btn-home">Kembali ke Home</a>
+
+    <footer>
+        <p>&copy; 2024 Jasa Pengiriman. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script>
+        function updateHarga() {
+            var wilayah = document.getElementById("destination").value;
+            var weight = parseFloat(document.getElementById("weight").value) || 0;
+            var packageType = document.getElementById("package-type").value;
+            var itemType = document.getElementById("item-type").value;
+            var basePrice = 10000;
+            var harga = basePrice;
+
+            // Update harga berdasarkan wilayah
+            if (wilayah) {
+                var hurufDepan = wilayah.charAt(0).toLowerCase();
+                harga += (hurufDepan.charCodeAt(0) - 'a'.charCodeAt(0)) * 1000;
+            }
+
+            // Update harga berdasarkan jenis paket
+            if (packageType === "express") {
+                harga += 5000; // Tambahkan biaya untuk paket ekspres
+            } else if (packageType === "fragile") {
+                harga += 3000; // Tambahkan biaya untuk paket fragile
+            }
+
+            // Update harga berdasarkan berat
+            if (weight > 0) {
+                harga += weight * 2000; // Misalnya, biaya Rp 2000 per kg
+            }
+
+            // Update harga berdasarkan jenis barang
+            if (itemType === "documents") {
+                harga += 2000; // Tambahkan biaya untuk dokumen
+            } else if (itemType === "electronics") {
+                harga += 5000; // Tambahkan biaya untuk elektronik
+            } else if (itemType === "food") {
+                harga += 3000; // Tambahkan biaya untuk makanan
+            } else if (itemType === "fragile") {
+                harga += 4000; // Tambahkan biaya untuk barang pecah belah
+            }
+
+            document.getElementById("price-info").innerHTML = "Harga Pengiriman: Rp " + harga.toLocaleString();
+            document.getElementById("summary-price").innerHTML = "Rp " + harga.toLocaleString();
+        }
+    </script>
+</body>
+</html>
