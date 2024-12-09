@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemesanan Jasa Pengiriman</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Jasa Pengiriman Paket</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">Tentang Kami</a></li>
+                <li><a href="services.html">Layanan</a></li>
+                <li><a href="track.html">Pelacakan</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="order-form">
+            <h2>Form Pemesanan</h2>
+            <form id="orderForm">
+                <label for="sender-name">Nama Pengirim:</label>
+                <input type="text" id="sender-name" name="sender_name" required>
+
+                <label for="recipient-name">Nama Penerima:</label>
+                <input type="text" id="recipient-name" name="recipient_name" required>
+
+                <label for="package-weight">Berat Paket (kg):</label>
+                <input type="number" id="package-weight" name="package_weight" required>
+
+                <label for="destination">Wilayah Tujuan (Kota):</label>
+                <input type="text" id="destination" name="destination" placeholder="Masukkan nama kota" required>
+
+                <p id="price-info">Harga Pengiriman: Rp 10,000</p>
+
+                <label for="payment-method">Metode Pembayaran:</label>
+                <select id="payment-method" name="payment_method" required>
+                    <option value="sender">Pengirim (Pembayar)</option>
+                    <option value="recipient">Penerima (Pembayar)</option>
+                </select>
+
+                <button type="submit" class="btn-submit">Kirim Pesanan</button>
+            </form>
+
+            <div id="order-summary" style="display: none;">
+                <h3>Rangkuman Pesanan</h3>
+                <p><strong>Nama Pengirim:</strong> <span id="summary-sender"></span></p>
+                <p><strong>Nama Penerima:</strong> <span id="summary-recipient"></span></p>
+                <p><strong>Berat Paket:</strong> <span id="summary-weight"></span> kg</p>
+                <p><strong>Wilayah Tujuan:</strong> <span id="summary-destination"></span></p>
+                <p><strong>Metode Pembayaran:</strong> <span id="summary-payment-method"></span></p>
+                <p><strong>Harga Pengiriman:</strong> <span id="summary-price"></span></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Jasa Pengiriman Paket. Semua hak cipta dilindungi.</p>
+    </footer>
+
+    <script>
+        function updatePrice() {
+            var destination = document.getElementById('destination').value.trim().toLowerCase(); // Input wilayah tujuan
+            var paymentMethod = document.getElementById('payment-method').value;
+            var priceInfo = document.getElementById('price-info');
+            var basePrice = 10000; // Harga awal Rp 10.000
+
+            // Daftar harga berdasarkan kota tertentu
+            var regionPrices = {
+                "jakarta": 10000, // Jakarta
+                "bandung": 11000, // Bandung
+                "cirebon": 12000, // Cirebon
+                "denpasar": 13000, // Denpasar
+                "surabaya": 14000  // Surabaya
+                // Tambahkan wilayah lainnya sesuai kebutuhan
+            };
+
+            // Menghitung harga berdasarkan wilayah tujuan
+            var finalPrice = regionPrices[destination] || basePrice; // Jika kota tidak ditemukan, harga default Rp 10.000
+
+            // Menampilkan harga pengiriman
+            priceInfo.textContent = "Harga Pengiriman: Rp " + finalPrice.toLocaleString();
+
+            // Menghitung harga berdasarkan metode pembayaran
+            var price = (paymentMethod === 'sender') ? finalPrice : finalPrice;
+
+            // Menampilkan harga pada ringkasan
+            document.getElementById('summary-price').textContent = "Rp " + price.toLocaleString();
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Mengambil data formulir
+            var senderName = document.getElementById('sender-name').value;
+            var recipientName = document.getElementById('recipient-name').value;
+            var packageWeight = document.getElementById('package-weight').value;
+            var destination = document.getElementById('destination').value;
+            var paymentMethod = document.getElementById('payment-method').value;
+            var priceInfo = document.getElementById('price-info').textContent;
+
+            // Menampilkan ringkasan pemesanan
+            document.getElementById('summary-sender').textContent = senderName;
+            document.getElementById('summary-recipient').textContent = recipientName;
+            document.getElementById('summary-weight').textContent = packageWeight;
+            document.getElementById('summary-destination').textContent = destination;
+            document.getElementById('summary-payment-method').textContent = (paymentMethod === 'sender') ? 'Pengirim' : 'Penerima';
+
+            // Menyembunyikan formulir dan menampilkan ringkasan
+            document.querySelector('.order-form').style.display = 'none';
+            document.getElementById('order-summary').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
