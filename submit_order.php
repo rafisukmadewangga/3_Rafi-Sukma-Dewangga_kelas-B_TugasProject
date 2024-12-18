@@ -11,45 +11,30 @@
         <h1>Terima Kasih, Pesanan Anda Telah Diterima!</h1>
     </header>
 
-   <main>
+    <main>
+        <p>Pesanan Anda telah berhasil kami terima. Anda akan segera dihubungi untuk detail lebih lanjut.</p>
+
         <?php
-        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-            header("Location: index.html"); // Redirect jika halaman diakses langsung
-            exit;
-        }
+        // Memeriksa apakah form telah dikirim
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Mengambil data dari form dengan pengecekan
+            $name = isset($_POST['name']) ? $_POST['name'] : 'Tidak ada nama';
+            $phone = isset($_POST['phone']) ? $_POST['phone'] : 'Tidak ada nomor telepon';
+            $email = isset($_POST['email']) ? $_POST['email'] : 'Tidak ada email';
+            $address = isset($_POST['address']) ? $_POST['address'] : 'Tidak ada alamat';
+            $package = isset($_POST['package']) ? $_POST['package'] : 'Tidak ada paket';
+            $weight = isset($_POST['weight']) ? $_POST['weight'] : 'Tidak ada berat';
 
-        // Mengambil data dari form
-        $name = !empty($_POST['name']) ? htmlspecialchars($_POST['name']) : 'Tidak ada nama';
-        $phone = preg_match('/^[0-9]{10,15}$/', $_POST['phone']) ? $_POST['phone'] : 'Nomor telepon tidak valid';
-        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) ? $_POST['email'] : 'Email tidak valid';
-        $address = !empty($_POST['address']) ? htmlspecialchars($_POST['address']) : 'Tidak ada alamat';
-        $package = !empty($_POST['package']) ? htmlspecialchars($_POST['package']) : 'Tidak ada paket';
-        $weight = is_numeric($_POST['weight']) && $_POST['weight'] > 0 ? $_POST['weight'] : 'Berat tidak valid';
+            // Membuat nomor resi unik
+            $resi = strtoupper(uniqid("RESI"));
 
-        // Membuat nomor resi unik
-        $resi = "RESI" . date("YmdHis") . rand(1000, 9999);
+            // Menyusun data pesanan
+            $orderData = "Nama Pengirim: $name\nNomor Telepon: $phone\nEmail: $email\nAlamat: $address\nJenis Paket: $package\nBerat Paket: $weight kg\n\n";
 
-        // Menyusun data pesanan
-        $orderData = "=== PESANAN ===\n";
-        $orderData .= "Nama Pengirim: $name\n";
-        $orderData .= "Nomor Telepon: $phone\n";
-        $orderData .= "Email: $email\n";
-        $orderData .= "Alamat: $address\n";
-        $orderData .= "Jenis Paket: $package\n";
-        $orderData .= "Berat Paket: $weight kg\n";
-        $orderData .= "Nomor Resi: $resi\n";
-        $orderData .= "Waktu Pesanan: " . date("Y-m-d H:i:s") . "\n";
-        $orderData .= "=================\n\n";
+            // Menyimpan data pesanan ke file 'orders.txt'
+            file_put_contents("orders.txt", $orderData, FILE_APPEND);
 
-        // Menyimpan data ke file
-        $filePath = __DIR__ . "/data/orders.txt";
-        if (!file_exists(dirname($filePath))) {
-            mkdir(dirname($filePath), 0777, true); // Membuat folder jika belum ada
-        }
-        if (file_put_contents($filePath, $orderData, FILE_APPEND) === false) {
-            echo "<p>Gagal menyimpan data pesanan. Silakan coba lagi nanti.</p>";
-        } else {
-            echo "<p>Pesanan Anda telah berhasil kami terima.</p>";
+            // Menampilkan nomor resi
             echo "<p><strong>Nomor Resi Anda: </strong>$resi</p>";
         }
         ?>
