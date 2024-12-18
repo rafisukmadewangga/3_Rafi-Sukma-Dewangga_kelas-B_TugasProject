@@ -10,15 +10,19 @@
     <header>
         <h1>Lacak Paket</h1>
     </header>
+
     <main>
+        <!-- Formulir untuk input nomor resi -->
         <form id="trackingForm">
             <label for="tracking_number">Nomor Resi:</label>
             <input type="text" id="tracking_number" name="tracking_number" required>
             <button type="submit">Lacak</button>
         </form>
 
-        <div id="status"></div> <!-- Untuk menampilkan status tracking -->
+        <!-- Tempat untuk menampilkan status tracking -->
+        <div id="status"></div>
 
+        <!-- Link kembali ke halaman utama -->
         <a href="index.html" class="btn-home">Kembali ke Home</a>
     </main>
 
@@ -27,26 +31,21 @@
     </footer>
 
     <script>
-        // Data simulasi status paket
-        const dataResi = {
-            "RESI6756A80C45257": "Paket sedang dalam perjalanan ke tujuan.",
-            "RESI4B82F9D123456": "Paket telah diterima oleh penerima.",
-            "RESI1C34A67B890EF": "Paket belum dikirim."
-        };
-
         // Meng-handle form submit
         document.getElementById("trackingForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Mencegah form untuk refresh halaman
 
-            const trackingNumber = document.getElementById("tracking_number").value.toUpperCase();
-            const statusElement = document.getElementById("status");
+            const trackingNumber = document.getElementById("tracking_number").value.toUpperCase(); // Ambil nomor resi
+            const statusElement = document.getElementById("status"); // Element untuk menampilkan status
 
-            // Cek apakah resi ada dalam data
-            if (dataResi[trackingNumber]) {
-                statusElement.innerHTML = "<h2>Status Paket:</h2><p>" + dataResi[trackingNumber] + "</p>";
-            } else {
-                statusElement.innerHTML = "<h2>Nomor Resi Tidak Ditemukan</h2><p>Silakan periksa kembali nomor resi Anda.</p>";
-            }
+            // Mengirimkan data resi ke server untuk pengecekan (misalnya dengan AJAX atau API request)
+            // Di sini kamu bisa menambahkan panggilan ke API atau backend untuk cek status yang lebih real-time.
+
+            // Placeholder untuk simpan status pengembalian jika menggunakan backend
+            statusElement.innerHTML = "<h2>Paket dalam perjalanan</h2><p>Silakan tunggu sejenak.</p>";
+            
+            // Misalnya kamu akan memanggil API di sini atau cek dari database server
+
         });
     </script>
 </body>
