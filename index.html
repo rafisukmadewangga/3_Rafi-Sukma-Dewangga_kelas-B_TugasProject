@@ -22,6 +22,9 @@
             <div class="mySlides fade">
                 <img src="siap menuju keberbagai wilayah.png"  style=width:500px;height:250px;%">
             </div>
+            <!-- Navigation buttons -->
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
         </div>
     
         <p>Kami siap membantu Anda mengirimkan paket ke seluruh Indonesia dengan cepat dan aman!</p>
@@ -38,21 +41,42 @@
         <p>&copy; 2024 Jasa Pengiriman. Semua Hak Cipta Dilindungi.</p>
     </footer>
     <script>
-        // Mengatur slideshow untuk mengganti gambar setiap 10 detik
         let slideIndex = 0;
 
-        function showSlides() {
+        // Menampilkan slide pertama
+        showSlide(slideIndex);
+
+        // Fungsi untuk menampilkan slide sesuai dengan index
+        function showSlide(index) {
             let slides = document.getElementsByClassName("mySlides");
+
+            if (index >= slides.length) { slideIndex = 0; }
+            if (index < 0) { slideIndex = slides.length - 1; }
+
+            // Menyembunyikan semua slide
             for (let i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";  
             }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}    
-            slides[slideIndex-1].style.display = "block";  
-            setTimeout(showSlides, 10000); // Mengganti slide setiap 10 detik
+
+            // Menampilkan slide yang sesuai dengan index
+            slides[slideIndex].style.display = "block";  
         }
 
-        showSlides(); // Memulai slideshow
+        // Fungsi untuk mengubah slide dengan tombol prev atau next
+        function changeSlide(n) {
+            slideIndex += n;
+            showSlide(slideIndex);
+        }
+
+        // Fungsi untuk mengganti slide otomatis setiap 10 detik
+        function autoShowSlides() {
+            slideIndex++;
+            showSlide(slideIndex);
+            setTimeout(autoShowSlides, 7000);  // Ganti slide setiap 10 detik
+        }
+
+        // Memulai slideshow otomatis
+        autoShowSlides();
     </script>
 </body>
 </html>
