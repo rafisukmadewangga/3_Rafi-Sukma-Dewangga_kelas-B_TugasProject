@@ -1,5 +1,5 @@
 /* Reset untuk semua elemen agar tidak ada margin dan padding default */
-body, h1, h2, h3, p, ul, li, a {
+body, h1, h2, h3, p, ul, li, a, button, input, textarea, select, form {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,20 +9,21 @@ body, h1, h2, h3, p, ul, li, a {
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #28a745; /* Ganti latar belakang menjadi hijau */
-    color: #fff; /* Ganti warna teks menjadi putih */
-    text-align: center; /* Semua teks akan berada di tengah */
+    background-color: #28a745; /* Latar belakang hijau */
+    color: #fff; /* Warna teks putih */
+    text-align: center;
     padding: 20px;
 }
 
 /* Header */
 header {
-    background: #155724; /* Warna header lebih gelap untuk kontras */
+    background: #155724; /* Warna header lebih gelap */
     color: #fff;
     padding: 20px 0;
+    margin-bottom: 20px;
 }
 
-/* Navigation */
+/* Navigation (Jika Ada) */
 header nav ul {
     list-style: none;
     display: flex;
@@ -48,6 +49,107 @@ main {
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
+    background: #1e7e34; /* Sedikit lebih terang dari background */
+    border-radius: 8px;
+}
+
+/* Forms */
+form {
+    margin: 20px auto;
+    text-align: left;
+    background: #fff;
+    color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input, form textarea, form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form button:hover {
+    background: #218838;
+}
+
+/* Buttons */
+.btn-home {
+    display: inline-block;
+    background: #ffc107;
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.btn-home:hover {
+    background: #e0a800;
+}
+
+/* Slideshow */
+.slideshow-container {
+    position: relative;
+    max-width: 100%;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.mySlides {
+    display: none;
+    text-align: center;
+}
+
+.mySlides img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+button.prev, button.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+button.prev {
+    left: 10px;
+}
+
+button.next {
+    right: 10px;
+}
+
+button.prev:hover, button.next:hover {
+    background: rgba(0, 0, 0, 0.8);
 }
 
 /* Footer */
@@ -57,99 +159,50 @@ footer {
     color: #fff;
     padding: 10px 0;
     margin-top: 20px;
+    border-radius: 8px;
 }
 
-/* Form and Input */
-form label {
-    display: block;
-    margin-top: 15px;
-}
-
-form input, form textarea, form button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-form button {
+/* Price and Info */
+#price-info, #summary-price {
     background: #155724;
     color: #fff;
-    cursor: pointer;
-}
-
-form button:hover {
-    background: #117a3e;
-}
-
-/* Styling for About Section */
-.about {
-    padding: 20px;
-    line-height: 1.6;
-}
-
-.about h2 {
-    margin-top: 40px; /* Jarak atas untuk judul utama */
-    margin-bottom: 30px; /* Jarak bawah untuk judul utama */
-    color: #fff;
-    font-size: 24px;
-}
-
-.about h3 {
-    margin-top: 30px; /* Jarak atas untuk subjudul */
-    margin-bottom: 20px; /* Jarak bawah untuk subjudul */
-    color: #fff;
-    font-size: 22px;
-}
-
-/* Button Home Styling */
-.btn-home {
-    display: inline-block;
-    margin-top: 40px; /* Jarak tombol dari konten atas */
-    background-color: #155724;
-    color: #fff;
-    font-size: 18px;
-    padding: 12px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.btn-home:hover {
-    background-color: #117a3e; /* Efek hover untuk tombol */
-}
-/* Form Pelacakan */
-.tracking-form {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #155724;
-    color: #fff;
-    border-radius: 5px;
-    max-width: 400px;
-    text-align: center;
-}
-
-.tracking-form input {
-    width: 80%;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #c40c0c;
-    border-radius: 5px;
+    border-radius: 8px;
+    margin-top: 10px;
 }
 
-.tracking-form button {
-    padding: 10px 20px;
-    background-color: #117a3e;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* List Style */
+ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
 }
 
-.tracking-form button:hover {
-    background-color: #0c5d2a;
+ul li {
+    margin-bottom: 10px;
+}
+
+/* Additional Styles for Tracking Page */
+#trackingForm {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+#trackingForm input {
+    margin-bottom: 10px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    form {
+        padding: 10px;
+    }
 }
